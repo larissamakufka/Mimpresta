@@ -18,7 +18,6 @@ if (isset($_GET["status"])) {
                 width: 400px;
                 margin: auto;
                 margin-top: 100px;
-
             }
 
         </style>
@@ -49,10 +48,8 @@ if (isset($_GET["status"])) {
                             <br/><br/> 
                             
                             <label>Ainda não sou cadastrado:</label><br/>
-                            <button type="submit" class="btn btn-primary text-center">Cadastrar</button>
+                            <button type="submit" class="btn btn-primary text-center" >Cadastrar</button>
                             <div/>
-
-
                     </form>
                 </div>
 
