@@ -28,6 +28,8 @@
                         <input name="nome"class="form-control" placeholder="usuário"/>
                         <label >Cpf</label>
                         <input name="cpf" class="form-control" placeholder="Cpf" />
+                        <label >Rg</label>
+                        <input name="rg" class="form-control" placeholder="Rg" />
                         <label>E-mail particular</label>
                         <input name="email"class="form-control" placeholder="E-mail"/>
                         <label >Endereço Residencial</label>
