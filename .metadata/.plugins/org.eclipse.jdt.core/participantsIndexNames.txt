@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-C:\Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4163982724.index
-\Mimpresta\src
