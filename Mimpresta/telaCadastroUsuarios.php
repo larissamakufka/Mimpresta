@@ -22,7 +22,7 @@
                
                 <h6 class="card-title text-center" >CADASTRO DE USUÁRIO</h6>
                 <div class="form-group" >
-                    <form method="post" action="actions/login.php">
+                    <form method="post" action="actions/addUsuario.php">
                         
                         <label>Nome Completo</label>
                         <input name="nome"class="form-control" placeholder="usuário"/>
@@ -34,6 +34,8 @@
                         <input name="email"class="form-control" placeholder="E-mail"/>
                         <label >Endereço Residencial</label>
                         <input name="endereço" class="form-control" placeholder="Endereço" />
+                        <label >Senha</label>
+                        <input type="password" name="senha" class="form-control" placeholder="Senha" />
                         <br/>
                         <div class = text-center>
                             <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
