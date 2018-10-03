@@ -3,7 +3,7 @@ $usuario = $_POST["usuario"];
 $senha = $_POST["senha"];
 
 if($usuario == "jordy"&& $senha=="123"){
-    header("Location: telaCadastro.php");
+    echo 'Entrou';
 }else{
     header("location: ../index.php?status=1");
 }
