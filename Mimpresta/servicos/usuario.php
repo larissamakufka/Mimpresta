@@ -5,8 +5,8 @@ require __DIR__ . '/conexaoBD.php';
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function addUsuario($nome,$email,$senha){
-    $sql = "insert into usuario values(0,'$nome','$email','$senha',1)";
+function addUsuario($nome,$cpf,$rg,$email,$usuario,$senha){
+    $sql = "insert into usuario values(0,'$nome','$cpf', '$rg',$email','$usuaio','$senha',)";
     $link = conectar();
     if(!mysqli_query($link, $sql)) {
         echo mysqli_error($link);
