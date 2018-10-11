@@ -19,11 +19,11 @@
 
         <div id="login" class="card">
             <div class="card-body">
-               
+
                 <h6 class="card-title text-center" >CADASTRO DE USUÁRIO</h6>
                 <div class="form-group" >
                     <form method="post" action="actions/addUsuario.php">
-                        
+
                         <label>Nome Completo</label>
                         <input name="nome"class="form-control" placeholder="usuário"/>
                         <label >Cpf</label>
@@ -32,8 +32,23 @@
                         <input name="rg" class="form-control" placeholder="Rg" />
                         <label>E-mail particular</label>
                         <input name="email"class="form-control" placeholder="E-mail"/>
-                        <label >Endereço Residencial</label>
-                        <input name="endereço" class="form-control" placeholder="Endereço" />
+                        <br/>   
+                        <select name="cidade" class="custom-select">
+                            <option selected>Selecione a cidade</option>
+                            <?php
+                            include ("servicos/conexaoBD.php");
+                            $consultaCidades = mysqli_query(conectar(), "SELECT * FROM cidade");
+                            while ($dados = mysqli_fetch_assoc($consultaCidades)) {
+                                ?>
+                                <option value="<?=$dados['idcidade'];?>"> <?=$dados['nome_cidade'];?></option>           
+                                <?php
+                            }
+                            ?>
+
+                        </select>
+                        <?php
+                        //colocar uma comobox com cidade, pais e estado aqui.
+                        ?>
                         <label >Usuário</label>
                         <input name="usuario" class="form-control" placeholder="Usuario" />
                         <label >Senha</label>
@@ -42,8 +57,8 @@
                         <div class = text-center>
                             <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
                             <br/><br/> 
-                            
-                            
+
+
                             <div/>
                     </form>
                 </div>

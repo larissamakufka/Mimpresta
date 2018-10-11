@@ -7,7 +7,9 @@
  */
 
 function conectar(){
+    
     $link = mysqli_connect("localhost", "root", "", "mimpresta", 3306);
+    
     if(!$link){
         echo 'Não foi possível conectar!';
         exit();
