@@ -36,14 +36,13 @@
                         <label>Numero endereço</label>
                         <input name="numeroLogradouro"class="form-control" placeholder="Numero"/>
                         <label>Complemento endereço</label>
-                        <input name="complementoLogradouro"class="form-control" placeholder="Complemento"/>
-                        
+                        <input name="complementoLogradouro"class="form-control" placeholder="Complemento"/>                        
                         <div>
                             <label>Selecione o país:</label>
                             <select name="pais" class="custom-select">
                                 <option selected>Selecione o País</option>
                                 <?php
-                                 include ("servicos/conexaoBD.php");
+                                include ("servicos/conexaoBD.php");
                                 $consultaPais = mysqli_query(conectar(), "SELECT * FROM pais");
                                 while ($dados = mysqli_fetch_assoc($consultaPais)) {
                                     ?>
@@ -58,7 +57,6 @@
                             <select name="estado" class="custom-select">
                                 <option selected>Selecione o estado</option>
                                 <?php
-                               
                                 $consultaEstado = mysqli_query(conectar(), "SELECT * FROM estado");
                                 while ($dados = mysqli_fetch_assoc($consultaEstado)) {
                                     ?>

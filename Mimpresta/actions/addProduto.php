@@ -16,5 +16,7 @@ $complementoLogradouro=$_POST["complementoLogradouro"];
 
 addUsuario($idEstado,$idPais,$idCidade,$nome,$cpf,$rg,$email,$usuario,$senha,$logradouro,$complementoLogradouro);
     
-header("location: ../index.php");
+//header("location: ../index.php");
+
+
 
