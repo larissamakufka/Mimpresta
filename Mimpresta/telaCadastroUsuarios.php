@@ -8,10 +8,9 @@
 
         <style>
             #login{
-                width: 400px;
-                margin: auto;
+                width: 1000px;
+                margin: 0 auto; 
                 margin-top: 50px;
-               
             }
 
         </style>
