@@ -11,6 +11,8 @@
                 width: 1000px;
                 margin: 0 auto;
                 margin-top: 150px;
+                background-color: whitesmoke;
+                border-radius: 20px;
             }
 
         </style>
@@ -43,7 +45,7 @@
                         <div class = text-center>
                             <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
                             <br/><br/> 
-                        </div>    
+                        </div>   
                     </form>
                 </div>
             </div>
