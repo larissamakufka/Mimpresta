@@ -33,14 +33,32 @@
         </nav>
         <div id="login" class="card">
             <div class="card-body">
-                <div class="form-group" >
-                    <form method="post" action="actions/addUsuario.php">
+                <div class="form-group">
+                    <form method="post" action="actions/addProduto.php">
                         <label>Nome Produto</label>
                         <input name="nomeProduto"class="form-control" placeholder="Nome do Produto"/>
-                        <label>Tipo</label>
-                        <input name="tipoProduto"class="form-control" placeholder="Tipo do produto"/>
+                        <br/>
+                        <div>
+                            <label>Selecione o tipo do produto:</label>
+                            <select name="tipoProduto" class="custom-select">
+                                <option selected>Selecione o tipo</option>
+                                <?php
+                                include ("servicos/conexaoBD.php");
+                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
+                                while ($dados = mysqli_fetch_assoc($consultaTipos)) {
+                                    ?>
+                                    <option value="<?= $dados['idtipoproduto']; ?>"> <?= $dados['nome']; ?></option>           
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
                         <label>Quantidade</label>
                         <input name="quantidade"class="form-control" placeholder="quantidade"/>
+                        <label>Usuario</label>
+                        <input name="usuario"class="form-control" placeholder="usuario"/>
+                        <label>senha</label>
+                        <input name="senha"class="form-control" placeholder="senha"/>
                         <br/>
                         <div class = text-center>
                             <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>

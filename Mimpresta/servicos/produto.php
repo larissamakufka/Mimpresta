@@ -1,16 +1,19 @@
 <?php
 require __DIR__ . '/conexaoBD.php';
-
-function addProduto(){
-    $sql = "insert into usuario values(0,'$idEstado','$idPais','$idCidade','$nome','$cpf','$rg','$email','$usuario','$senha','$logradouro','$complementoLogradouro')";
+function addProduto($nome,$tipo,$usuario,$senha){
+    $idUsuario = "select idusuario from usuario where usuario = '$usuario' and senha = '$senha'";
+    $sql = "insert into produto values(0,1,$idUsuario,$tipo,'$nome')";
+    
+    $link1 = conectar();
+    if(!mysqli_query($link1, $idUsuario)){
+        echo mysqli_error($link1);
+        exit;
+    }
     $link = conectar();
-    if(!mysqli_query($link, $sql)) {
+    if(!mysqli_query($link, $sql)){
         echo mysqli_error($link);
         exit;
     }
-    
-    
-    
-    
 }
+
 

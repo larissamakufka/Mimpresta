@@ -1,22 +1,14 @@
 <?php
-require __DIR__ . '/../servicos/usuario.php';
+require __DIR__ . '/../servicos/produto.php';
 
-$nome = $_POST["nome"];
-$cpf = $_POST["cpf"];
-$rg = $_POST["rg"];
-$email = $_POST["email"];
+$nome = $_POST["nomeProduto"];
+$tipo = $_POST["tipoProduto"];
 $usuario = $_POST["usuario"];
 $senha = $_POST["senha"];
-$idEstado= $_POST["estado"];
-$idPais = $_POST["pais"];
-$idCidade = $_POST["cidade"];
-$logradouro=$_POST["nomeLogradouro"];
-$complementoLogradouro=$_POST["complementoLogradouro"];
 
+addProduto($nome,$tipo,$usuario,$senha);
 
-addUsuario($idEstado,$idPais,$idCidade,$nome,$cpf,$rg,$email,$usuario,$senha,$logradouro,$complementoLogradouro);
-    
-//header("location: ../index.php");
+header("location: ../index.php");
 
 
 
