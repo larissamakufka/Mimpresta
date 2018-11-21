@@ -14,7 +14,6 @@
                 background-color: whitesmoke;
                 border-radius: 20px;
             }
-
         </style>
     </head>
     <body background="https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg">
