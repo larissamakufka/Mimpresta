@@ -1,20 +1,15 @@
 <?php
+
 require __DIR__ . '/conexaoBD.php';
+session_start();
 
-function addProduto($nome,$tipo,$usuario,$senha){
-    $sql = "select idusuario from usuario where usuario = '$usuario' and senha = '$senha'";
-    $link1 = conectar();
-    $rs = mysqli_query($link1, $sql);
-    $dados = mysqli_fetch_assoc($rs);
-    $idUsuario = $dados["idusuario"];
+function addProduto($nome, $tipo) {
 
-    $sql = "insert into produto values(0,1,$idUsuario,$tipo,'$nome')";
-    
+    $sql = "insert into produto values(0,1,$_SESSION[id_usuario],$tipo,'$nome')";
+
     $link = conectar();
-    if(!mysqli_query($link, $sql)){
+    if (!mysqli_query($link, $sql)) {
         echo mysqli_error($link);
         exit;
     }
 }
-
-
