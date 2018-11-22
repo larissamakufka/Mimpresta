@@ -21,10 +21,5 @@ function validaLogin($usuario, $senha) {
     $link = conectar();
     $rs = mysqli_query($link, $sql);
     $dados = mysqli_fetch_assoc($rs);
-    if($dados!=null){
-      header("location: ../telaPrincipal.php");  
-    }else{
-        header("location: ../index.php");
-    }
-
+    return $dados != null;
 }
