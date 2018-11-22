@@ -174,23 +174,32 @@
                     <fieldset>
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Nome Produto</th>                         
+                                <tr class="header">
+                                    <th>
+                                        Nome
+                                    </th>
+                                    <th>
+                                        Value
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $nmProduto = mysqli_query(conectar(), "SELECT * FROM produto");
-                                while ($dados = mysqli_fetch_assoc($nmProduto)) {
+                                $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
+                                $linha = mysqli_fetch_array($consultaNomeProduto);
+                                do {
                                     ?>
-                                    <tr>                                       
-                                        <td><?php $dados['nome_produto']; ?></td>
-
+                                    <tr> 
+                                        <td> 
+                                            <?= $linha['nome_produto'] ?> 
+                                        </td> 
                                     </tr>
-
                                     <?php
-                                }
-                                ?> 
+                                } while ($dados = mysqli_fetch_array($consultaNomeProduto));
+                                ?>
                             </tbody>
                         </table>
                     </fieldset>
