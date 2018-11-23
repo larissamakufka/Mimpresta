@@ -1,18 +1,20 @@
 <?php
 session_start();
-if(!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
+if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
     header("location: index.php");
 }
-
 ?>
 <html>
     <head>
         <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title> Cadastro de produto </title>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="js/jQuery.js" type="text/javascript"></script>
+        <script src="js/jquery.mask.min.js" type="text/javascript"></script>
+        
+        <title> Cadastro de produto </title>
 
         <style>
             body  {
@@ -26,7 +28,7 @@ if(!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
             nav {
                 background-color: rgba(0,0,0,0.2);
             }
-            
+
         </style>
     </head>
     <body >
@@ -42,7 +44,7 @@ if(!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
                 </ul>
             </div>
         </nav>
-        
+
         <div id="login" class="card">
             <div class="card-content">
                 <span class="card-title">Cadastro de Produtos</span>
@@ -67,8 +69,18 @@ if(!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
                             </select>
                             <br>
                         </div>
-                        <label>Quantidade</label>
-                        <input name="quantidade" type="number" class="form-control" placeholder="quantidade"/>
+                        <table>
+                            <tbody>
+                            <th>
+                                <label>Valor por dia de uso do produto</label>
+                                <input name="valor_dia" type="text" class="form-control money" placeholder="valor"  />
+                            </th>
+                            <th>
+                                <label>Quantidade</label>
+                                <input name="quantidade" type="number" class="form-control" placeholder="quantidade"/>
+                            </th>
+                            </tbody>
+                        </table>
                         <div class = text-center>
                             <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
                         </div>   
@@ -78,4 +90,9 @@ if(!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
         </div>
         <br><br>
     </body>
+    <script>
+        $(document).ready(function () {
+            $('.money').mask('000.000,00', {reverse: true});
+        });
+    </script>
 </html>

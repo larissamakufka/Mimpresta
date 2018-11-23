@@ -176,13 +176,13 @@
                             <thead>
                                 <tr class="header">
                                     <th>
-                                        Nome
+                                        Descrição
                                     </th>
                                     <th>
-                                        Value
+                                        Valor por dia
                                     </th>
                                     <th>
-                                        Description
+                                        adicionar ao carrinho
                                     </th>
                                 </tr>
                             </thead>
@@ -194,6 +194,7 @@
                                     ?>
                                     <tr> 
                                         <td> 
+                                            <?= $linha['nome_produto'] ?> 
                                             <?= $linha['nome_produto'] ?> 
                                         </td> 
                                     </tr>
