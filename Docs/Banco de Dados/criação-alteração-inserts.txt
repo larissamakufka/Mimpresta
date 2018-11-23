@@ -1,0 +1,105 @@
+CREATE TABLE alugado (
+  idaluguel INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  usuario_idusuario INTEGER UNSIGNED  NOT NULL  ,
+  produto_idproduto INTEGER UNSIGNED  NOT NULL  ,
+  data_inicio_alugado DATE  NOT NULL  ,
+  data_fim_alugado DATE  NOT NULL    ,
+PRIMARY KEY(idaluguel)  ,
+INDEX aluguel_FKIndex1(produto_idproduto)  ,
+INDEX aluguel_FKIndex3(usuario_idusuario));
+
+
+CREATE TABLE cidade (
+  idcidade INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  estado_pais_idpais INTEGER UNSIGNED  NOT NULL  ,
+  estado_idestado INTEGER UNSIGNED  NOT NULL  ,
+  nome_cidade VARCHAR(255)  NOT NULL    ,
+PRIMARY KEY(idcidade, estado_pais_idpais, estado_idestado)  ,
+INDEX cidade_FKIndex1(estado_idestado, estado_pais_idpais));
+
+
+CREATE TABLE estado (
+  idestado INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  pais_idpais INTEGER UNSIGNED  NOT NULL  ,
+  nome_estado VARCHAR(255)  NOT NULL  ,
+  sigla_estado VARCHAR(2)  NOT NULL    ,
+PRIMARY KEY(idestado, pais_idpais)  ,
+INDEX estado_FKIndex1(pais_idpais));
+
+
+CREATE TABLE fornecido (
+  idaluguelfornecedor INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  produto_idproduto INTEGER UNSIGNED  NOT NULL  ,
+  usuario_idusuario INTEGER UNSIGNED  NOT NULL  ,
+  data_inicio_fornecido DATE  NOT NULL  ,
+  data_fim_fornecido DATE  NOT NULL    ,
+PRIMARY KEY(idaluguelfornecedor)  ,
+INDEX aluguelFornecedor_FKIndex1(usuario_idusuario)  ,
+INDEX fornecidos_FKIndex2(produto_idproduto));
+
+
+CREATE TABLE pais (
+  idpais INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  nome_pais VARCHAR(45)  NOT NULL    ,
+PRIMARY KEY(idpais));
+
+
+CREATE TABLE produto (
+  idproduto INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  status_produto_idstatusproduto INTEGER UNSIGNED  NOT NULL  ,
+  usuario_idusuario INTEGER UNSIGNED  NOT NULL  ,
+  tipo_produto_idtipoProduto INTEGER UNSIGNED  NOT NULL  ,
+  nome_produto VARCHAR(255)  NOT NULL    ,
+PRIMARY KEY(idproduto)  ,
+INDEX produto_FKIndex1(tipo_produto_idtipoProduto)  ,
+INDEX produto_FKIndex3(usuario_idusuario)  ,
+INDEX produto_FKIndex4(status_produto_idstatusproduto));
+
+
+CREATE TABLE reserva (
+  idreserva INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  produto_idproduto INTEGER UNSIGNED  NOT NULL  ,
+  data_inicio DATE  NOT NULL  ,
+  data_fim DATE  NOT NULL    ,
+PRIMARY KEY(idreserva)  ,
+INDEX reserva_FKIndex1(produto_idproduto));
+
+
+CREATE TABLE status_produto (
+  idstatusproduto INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  status_produto VARCHAR(255)  NOT NULL    ,
+PRIMARY KEY(idstatusproduto));
+
+
+CREATE TABLE tipo_produto (
+  idtipoproduto INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  nome VARCHAR(255)  NOT NULL    ,
+PRIMARY KEY(idtipoproduto));
+
+
+CREATE TABLE usuario (
+  idusuario INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  cidade_estado_idestado INTEGER UNSIGNED  NOT NULL  ,
+  cidade_estado_pais_idpais INTEGER UNSIGNED  NOT NULL  ,
+  cidade_idcidade INTEGER UNSIGNED  NOT NULL  ,
+  nome_usuario VARCHAR(255)  NOT NULL  ,
+  cpf VARCHAR(11)  NOT NULL  ,
+  rg VARCHAR(9)  NOT NULL  ,
+  email VARCHAR(45)  NOT NULL  ,
+  usuario VARCHAR(45)  NOT NULL  ,
+  senha VARCHAR(45)  NOT NULL  ,
+  logradouro VARCHAR(255)  NOT NULL  ,
+  complemento_logradouro VARCHAR(10)  NOT NULL    ,
+PRIMARY KEY(idusuario)  ,
+INDEX usuario_FKIndex1(cidade_idcidade, cidade_estado_pais_idpais, cidade_estado_idestado));
+
+
+ALTER TABLE `produto` ADD `valor_dia` DECIMAL(10,2) NOT NULL ;
+
+
+
+
+INSERT INTO `pais` (`idpais`, `nome_pais`) VALUES ('0', 'Brasil')
+INSERT INTO `estado` (`idestado`, `pais_idpais`, `nome_estado`, `sigla_estado`) VALUES ('0', '0', 'Santa Catarina', 'SC');
+INSERT INTO `cidade` (`idcidade`, `estado_pais_idpais`, `estado_idestado`, `nome_cidade`) VALUES ('0', '0', '0', 'Blumenau');
+INSERT INTO `tipo_produto` (`idtipoproduto`, `nome`) VALUES ('0', 'casa');
