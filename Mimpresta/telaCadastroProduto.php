@@ -13,15 +13,16 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="js/jQuery.js" type="text/javascript"></script>
         <script src="js/jquery.mask.min.js" type="text/javascript"></script>
-        
+
         <title> Cadastro de produto </title>
 
         <style>
             body  {
                 background: url("./trianglify.png");
+                background-size: cover;
+                background-repeat:no-repeat;
             }
             #login{
-                width: 1000px;
                 margin: auto;
                 margin-top: 20px;
             }
@@ -45,49 +46,59 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
             </div>
         </nav>
 
-        <div id="login" class="card">
-            <div class="card-content">
-                <span class="card-title">Cadastro de Produtos</span>
-                <div class="form-group">
-                    <form method="post" action="actions/addProduto.php">
-                        <label>Nome Produto</label>
-                        <input name="nomeProduto"class="form-control" placeholder="Nome do Produto" autofocus=""/>
-                        <br/>
-                        <div>
-                            <label>Selecione o tipo do produto:</label>
-                            <select name="tipoProduto" class="browser-default custom-select">
-                                <option selected>Selecione o tipo</option>
-                                <?php
-                                include ("servicos/conexaoBD.php");
-                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
-                                while ($dados = mysqli_fetch_assoc($consultaTipos)) {
-                                    ?>
-                                    <option value="<?= $dados['idtipoproduto']; ?>"> <?= $dados['nome']; ?></option>           
-                                    <?php
-                                }
-                                ?>
-                            </select>
-                            <br>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m12 l8 offset-l2">
+                    <div id="login" class="card">
+                        <div class="card-content">
+                            <span class="card-title">Cadastro de Produtos</span>
+                            <div class="form-group">
+                                <br/>
+                                <form method="post" action="actions/addProduto.php">
+                                    <label>Nome Produto</label>
+                                    <input name="nomeProduto"class="form-control" placeholder="Nome do Produto" autofocus=""/>
+                                    <br/>
+                                    <br/>
+                                    <div>
+                                        <label>Categoria:</label>
+                                        <select name="tipoProduto" class="browser-default custom-select">
+                                            <option selected>Selecione a categoria</option>
+                                            <?php
+                                            include ("servicos/conexaoBD.php");
+                                            $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
+                                            while ($dados = mysqli_fetch_assoc($consultaTipos)) {
+                                                ?>
+                                                <option value="<?= $dados['idtipoproduto']; ?>"> <?= $dados['nome']; ?></option>           
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                        <br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 m12 l6">
+                                            <label>Valor por dia de uso do produto</label>
+                                            <input name="valor_dia" type="text" class="form-control money" placeholder="valor"  />
+                                        </div>
+                                        <div class="col s12 m12 l6">
+                                            <label>Quantidade</label>
+                                            <input name="quantidade" type="number" class="form-control" placeholder="quantidade"/>
+                                        </div>
+                                    </div>
+                                    <div class = text-center>
+                                        <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
+                                    </div>   
+                                </form>
+                            </div>
                         </div>
-                        <table>
-                            <tbody>
-                            <th>
-                                <label>Valor por dia de uso do produto</label>
-                                <input name="valor_dia" type="text" class="form-control money" placeholder="valor"  />
-                            </th>
-                            <th>
-                                <label>Quantidade</label>
-                                <input name="quantidade" type="number" class="form-control" placeholder="quantidade"/>
-                            </th>
-                            </tbody>
-                        </table>
-                        <div class = text-center>
-                            <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
-                        </div>   
-                    </form>
+                    </div>
+
                 </div>
+
             </div>
         </div>
+
+
         <br><br>
     </body>
     <script>
