@@ -37,8 +37,8 @@
                         <ul class="right">
                             <li class="active"><a href="telaPrincipal.php">Home</a></li>
                             <li><a href="telaCadastroProduto.php">Cadastrar produto</a></li>
-                            <li><a href="#">Meus produtos</a></li>
-                            <li><a href="#">Meu perfil</a></li>
+                            <li><a href="meusProdutos.php">Meus produtos</a></li>
+                            <li><a href="telaPerfil.php">Meu perfil</a></li>
                             <li><a href="index.php">Sair</a></li>
                         </ul>
                     </div>

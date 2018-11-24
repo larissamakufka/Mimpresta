@@ -4,12 +4,11 @@ require __DIR__ . '/../servicos/produto.php';
 
 $nome = $_POST["nomeProduto"];
 $tipo = $_POST["tipoProduto"];
-$usuario = $_POST["usuario"];
-$senha = $_POST["senha"];
+$valor = $_POST["valor_dia"];
 
-addProduto($nome, $tipo);
+addProduto($nome, $tipo,$valor);
 
-header("location: ../index.php");
+header("location: ../telaCadastroProduto.php");
 
 
 

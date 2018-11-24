@@ -39,8 +39,8 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
                 <ul class="right">
                     <li><a href="telaPrincipal.php">Home</a></li>
                     <li class="active"><a href="telaCadastroProduto.php">Cadastrar produto</a></li>
-                    <li><a href="#">Meus produtos</a></li>
-                    <li><a href="#">Meu perfil</a></li>
+                    <li><a href="meusProdutos.php">Meus produtos</a></li>
+                    <li><a href="telaPerfil.php">Meu perfil</a></li>
                     <li><a href="index.php">Sair</a></li>
                 </ul>
             </div>
