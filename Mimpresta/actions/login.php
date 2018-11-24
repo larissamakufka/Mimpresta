@@ -17,6 +17,7 @@ $idUsuario = $dados["idusuario"];
 if ($login) {
     $_SESSION["id_usuario"] = $idUsuario;
     $_SESSION["usuario"] = $usuario;
+    
     header("location: ../telaPrincipal.php");
 } else {
     header("location: ../index.php");
