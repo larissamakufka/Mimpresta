@@ -6,7 +6,6 @@
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <title>Procurar produtos</title>
-
         <style>
 
             body  {
@@ -26,7 +25,7 @@
             }
         </style>
     </head>
-    <body >
+    <body>
         <nav class="z-depth-0">
             <div class="container">
                 <div class="row">
@@ -52,10 +51,10 @@
                 <div class="col s4 m4 l4 offset-4">
                     <!-- Forms -->
                     <div class="forms"> 
-                        <form>
+                       
                             <!-- Search input-->
                             <div id="buscar">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" method="post" action="actions/alugar.php">
                                     <fieldset>                        
                                         <span class="card-title">Busca de produtos</span>
                                         <br/> 
@@ -77,7 +76,6 @@
                                                 </select>
                                             </div>
                                         </div>
-
                                         <div class="form-group">
                                             <label class="col-md-4 control-label" for="estadoProduto">Estado</label>
                                             <div class="col-md-6">
@@ -129,7 +127,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                     <?php   /*<div class="form-group">
                                             <label class="col-md-4 control-label" for="nomeProduto">Produto</label>
                                             <div class="col-md-6">
                                                 <select id="nomeProduto" name="nomeProduto" class="browser-default custom-select">
@@ -145,20 +143,27 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <label>Alugar até: </label>
+                                        <input name="dataFinalAluguel" type="date" class="form-control">*/?>
+
                                         <br/> 
                                         <!-- Button (Double) -->
                                         <div class="form-group">
                                             <label class="col-md-4 control-label" for="buttonSave"></label>
                                             <div class="col-md-8">
-                                                <button id="buttonSave" name="buttonSave" class="btn btn-primary">Aplicar</button>
+                                                <button type="submit" id="buttonSave" name="buttonSave" class="btn btn-primary">Aplicar</button>
                                                 <button id="buttonClear" name="buttonClear" class="btn btn-default">Limpar</button>
                                             </div>
                                         </div>
                                     </fieldset>
-                            </div>
-                        </form>
+                                </form>
+                            </div>              
                     </div>
                 </div>
+
+
+
                 <div class="col s8 m8 l8 offset-8">
                     <form>
                         <div id="tela2">
@@ -173,7 +178,10 @@
                                                 Valor por dia
                                             </th>
                                             <th>
-                                                adicionar ao carrinho
+                                                Pretendo alugar até:
+                                            </th>
+                                            <th>
+                                                Reservar
                                             </th>
                                         </tr>
                                     </thead>
@@ -181,7 +189,7 @@
                                         <?php
                                         $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
                                         $linha = mysqli_fetch_array($consultaNomeProduto);
-                                        do {
+                                       while ($dados = mysqli_fetch_array($consultaNomeProduto)) {
                                             ?>
                                             <tr> 
                                                 <td> 
@@ -190,9 +198,15 @@
                                                 <td> 
                                                     <?= $linha['valor_dia'] ?> 
                                                 </td> 
+                                                 <td> 
+                                                   <input name="dataFinalAluguel" type="date" class="form-control">
+                                                </td> 
+                                                <td> 
+                                                    <a class="btn-floating btn-default waves-effect waves-light green"><i class="material-icons">+</i></a>
+                                                </td> 
                                             </tr>
                                             <?php
-                                        } while ($dados = mysqli_fetch_array($consultaNomeProduto));
+                                        } 
                                         ?>
                                     </tbody>
                                 </table>
