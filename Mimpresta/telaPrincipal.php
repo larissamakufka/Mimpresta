@@ -187,6 +187,11 @@
                                     </thead>
                                     <tbody>
                                         <?php
+                                        
+                                        //criei a action "alugar" e o serviço filtro, 
+                                        //falta fazer funcionar a listagem de produtos conforme filtro.
+                                        //após, falta fazer o botão reservar funcionar.
+                                        
                                         $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
                                         $linha = mysqli_fetch_array($consultaNomeProduto);
                                        while ($dados = mysqli_fetch_array($consultaNomeProduto)) {
