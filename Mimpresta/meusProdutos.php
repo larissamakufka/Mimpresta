@@ -46,102 +46,106 @@
                 </div>
             </div>
         </nav>
-        <!-- Conteúdo -->
-        <div class="col s4 m4 l4 offset-4">
-            <form>
-                <div id="tela2">
-                    <fieldset>
-                        <table>
-                            <thead>
-                                <tr class="header">
-                                    <th>
-                                        Meus Produtos Fornecidos
-                                    </th>
-                                    <th>
-                                        Valor por dia
-                                    </th>
-                                    <th>
-                                        Status atual
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                session_start();
-                                include ("servicos/conexaoBD.php");
-                                $consultaFornecido = mysqli_query(conectar(), 
-                                        "SELECT * FROM fornecido f,produto p, "
-                                        . "status_produto s "
-                                        . "WHERE f.produto_idproduto = p.idproduto and "
-                                        . "p.status_produto_idstatusproduto = s.idstatusproduto");
-                               
-                                $linha = mysqli_fetch_assoc($consultaFornecido);
 
-                                while ($linha = mysqli_fetch_assoc($consultaFornecido)) {
-                                    ?>
-                                    <tr> 
-                                        <td> 
-                                            <?= $linha['nome_produto']?> 
-                                        </td> 
-                                        <td> 
-                                            <?= $linha['valor_dia']?> 
-                                        </td> 
-                                        <td> 
-                                            <?= $linha['status_produto']?> 
-                                        </td> 
+        <br/>
+        <!-- Conteúdo -->
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m12 l12 offset-12">
+                    <div id="tela2">
+                        <fieldset>
+                            <table>
+                                <thead>
+                                    <tr class="header">
+                                        <th>
+                                            Meus Produtos Fornecidos
+                                        </th>
+                                        <th>
+                                            Valor por dia
+                                        </th>
+                                        <th>
+                                            Status atual
+                                        </th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php
+                                    session_start();
+                                    include ("servicos/conexaoBD.php");
+                                    $consultaFornecido = mysqli_query(conectar(), "SELECT * FROM fornecido f,produto p, "
+                                            . "status_produto s "
+                                            . "WHERE f.produto_idproduto = p.idproduto and "
+                                            . "p.status_produto_idstatusproduto = s.idstatusproduto");
+
+                                    $linha = mysqli_fetch_assoc($consultaFornecido);
+
+                                    while ($linha = mysqli_fetch_assoc($consultaFornecido)) {
+                                        ?>
+                                        <tr> 
+                                            <td> 
+                                                <?= $linha['nome_produto'] ?> 
+                                            </td> 
+                                            <td> 
+                                                <?= $linha['valor_dia'] ?> 
+                                            </td> 
+                                            <td> 
+                                                <?= $linha['status_produto'] ?> 
+                                            </td> 
+                                        </tr>
+                                        <?php
                                     }
-                                ?>
-                            </tbody>
-                        </table>
-                    </fieldset>
-                </div>
-            </form>
-        </div>
-        <div class="col s8 m8 l8 offset-8">
-            <form>
-                <div id="tela2">
-                    <fieldset> <?php // Ainda falta implementar os produtos locados: ?>
-                        <table>
-                            <thead>
-                                <tr class="header">
-                                    <th>
-                                        Meus produtos locados
-                                    </th>
-                                    <th>
-                                        Valor por dia
-                                    </th>
-                                    <th>
-                                        Prazo final para  devolução
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
-                                $linha = mysqli_fetch_array($consultaNomeProduto);
-                                do {
                                     ?>
-                                    <tr> 
-                                        <td> 
-                                            <?= $linha['nome_produto'] ?> 
-                                        </td> 
-                                        <td> 
-                                            <?= $linha['valor_dia'] ?> 
-                                        </td> 
-                                        <td> 
-                                            
-                                        </td> 
-                                    </tr>
-                                    <?php
-                                } while ($dados = mysqli_fetch_array($consultaNomeProduto));
-                                ?>
-                            </tbody>
-                        </table>
-                    </fieldset>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
                 </div>
-            </form>
+            </div>
+
+            <div class="row">
+                <div class="col s12 m12 l12 offset-12">
+                    <div id="tela2">
+                        <fieldset> <?php // Ainda falta implementar os produtos locados:       ?>
+                            <table>
+                                <thead>
+                                    <tr class="header">
+                                        <th>
+                                            Meus produtos locados
+                                        </th>
+                                        <th>
+                                            Valor por dia
+                                        </th>
+                                        <th>
+                                            Prazo final para  devolução
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
+                                    $linha = mysqli_fetch_array($consultaNomeProduto);
+                                    do {
+                                        ?>
+                                        <tr> 
+                                            <td> 
+                                                <?= $linha['nome_produto'] ?> 
+                                            </td> 
+                                            <td> 
+                                                <?= $linha['valor_dia'] ?> 
+                                            </td> 
+                                            <td> 
+
+                                            </td> 
+                                        </tr>
+                                        <?php
+                                    } while ($dados = mysqli_fetch_array($consultaNomeProduto));
+                                    ?>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

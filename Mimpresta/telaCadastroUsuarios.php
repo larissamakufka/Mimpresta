@@ -8,9 +8,11 @@
         <title>Cadastro de usuário</title>
 
         <style>
-            
-            body {
+
+            body  {
                 background: url("./trianglify.png");
+                background-size: cover;
+                background-repeat:no-repeat;
             }
             #login{
                 width: 1000px;
@@ -28,8 +30,8 @@
     <body >
         <nav class="z-depth-0">
             <div class="container">
-                    <a class="brand-logo">Mimpresta - Cadastro de usuário</a> 
-                
+                <a class="brand-logo">Mimpresta - Cadastro de usuário</a> 
+
             </div>
         </nav>
         <div id="login" class="card">

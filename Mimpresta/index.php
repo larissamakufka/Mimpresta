@@ -15,8 +15,10 @@ if (isset($_GET["status"])) {
         <title>Mimpresta</title>
 
         <style>
-            body{
+            body  {
                 background: url("./trianglify.png");
+                background-size: cover;
+                background-repeat:no-repeat;
             }
 
             #login{
