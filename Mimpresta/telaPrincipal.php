@@ -1,6 +1,10 @@
 <?php
 include ("servicos/conexaoBD.php");
 
+$descricaoproduto = null;
+if (isset($_GET["nomeProduto"])) {
+    $descricaoproduto = $_GET["nomeProduto"];
+}
 $paisFiltro = null;
 if (isset($_GET["paisProduto"])) {
     $paisFiltro = $_GET["paisProduto"];
@@ -19,6 +23,9 @@ if (isset($_GET["tipoProduto"])) {
 }
 
 $sql = "SELECT * FROM produto WHERE 1 = 1";
+if ($descricaoproduto != null) {
+    $sql .= " AND nome_produto like '%$descricaoproduto%'";
+}
 if ($paisFiltro != null) {
     $sql .= " AND pais = $paisFiltro";
 }
@@ -32,7 +39,7 @@ if ($tipoProduto != null) {
     $sql .= " AND tipoProduto = $tipoProduto";
 }
 
-//echo($sql);
+echo($sql);
 $consultaNomeProduto = mysqli_query(conectar(), $sql);
 ?>
 <html>
@@ -152,7 +159,7 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                                             <select id="tipoProduto" name="tipoProduto" class="browser-default custom-select">
                                                 <option value="">Selecione o tipo</option>
                                                 <?php
-                                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM PRODUTO");
+                                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipoproduto");
                                                 while ($dados = mysqli_fetch_assoc($consultaTipos)) {
                                                     ?>
                                                     <option value="<?= $dados['tipoproduto']; ?>" <?= $tipoProduto == $dados['idtipoproduto'] ? 'selected' : '' ?>> <?= $dados['nome']; ?></option>           
