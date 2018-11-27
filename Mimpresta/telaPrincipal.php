@@ -5,20 +5,34 @@ $paisFiltro = null;
 if (isset($_GET["paisProduto"])) {
     $paisFiltro = $_GET["paisProduto"];
 }
+$estadoFiltro = null;
+if (isset($_GET["estadoProduto"])) {
+    $estadoFiltro = $_GET["estadoProduto"];
+}
+$cidadeFiltro = null;
+if (isset($_GET["cidadeProduto"])) {
+    $cidadeFiltro = $_GET["cidadeProduto"];
+}
 $tipoProduto = null;
 if (isset($_GET["tipoProduto"])) {
     $tipoProduto = $_GET["tipoProduto"];
 }
 
 $sql = "SELECT * FROM produto WHERE 1 = 1";
+if ($paisFiltro != null) {
+    $sql .= " AND pais = $paisFiltro";
+}
+if ($estadoFiltro != null) {
+    $sql .= " AND estado = $estadoFiltro";
+}
+if ($cidadeFiltro != null) {
+    $sql .= " AND cidade = $cidadeFiltro";
+}
 if ($tipoProduto != null) {
     $sql .= " AND tipoProduto = $tipoProduto";
 }
 
-if ($paisFiltro != null) {
-    $sql .= " AND pais = $paisFiltro";
-}
-echo($sql);
+//echo($sql);
 $consultaNomeProduto = mysqli_query(conectar(), $sql);
 ?>
 <html>
@@ -61,7 +75,6 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                 </div>
             </div>
         </nav>
-
         <br/>
         <!-- Conteúdo -->
         <div class="container">
@@ -69,120 +82,104 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                 <div class="col s4 m4 l4 offset-4">
                     <!-- Forms -->
                     <div class="forms"> 
-
                         <!-- Search input-->
                         <div class="card">
                             <div class="card-content">
                                 <form class="form-horizontal" method="GET" action="telaPrincipal.php">
-
                                     <span class="card-title">Busca de produtos</span>
                                     <br/> 
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="nomeProduto">Produto</label>
+                                        <div class="col-md-6">
+                                            <input id="nomeProduto" name="nomeProduto" class="browser-default custom-select"></input>
+                                        </div>
+                                    </div>
                                     <br/> 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="paisProduto">País</label>
                                         <div class="col-md-6">
-                                            <select id="tipoProduto" name="paisProduto" class="browser-default custom-select">
+                                            <select id="paisProduto" name="paisProduto" class="browser-default custom-select">
                                                 <option value="" selected>Selecione o país</option>
                                                 <?php
                                                 $consultaPais = mysqli_query(conectar(), "SELECT * FROM PAIS");
                                                 while ($dados = mysqli_fetch_assoc($consultaPais)) {
                                                     ?>
-                                                    <option value="<?= $dados['idpais']; ?>"> <?= $dados['nome_pais']; ?></option>    
+                                                    <option value="<?= $dados['idpais']; ?>" <?= $paisFiltro == $dados['idpais'] ? 'selected' : '' ?>> <?= $dados['nome_pais']; ?></option>        
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
+                                    <br/> 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="estadoProduto">Estado</label>
                                         <div class="col-md-6">
-                                            <select id="tipoProduto" name="estadoProduto" class="browser-default custom-select">
+                                            <select id="estadoProduto" name="estadoProduto" class="browser-default custom-select">
                                                 <option value="" selected>Selecione o estado</option>
                                                 <?php
                                                 $consultaEstado = mysqli_query(conectar(), "SELECT * FROM estado");
                                                 while ($dados = mysqli_fetch_assoc($consultaEstado)) {
-                                                    ?>
-                                                    <option value="<?= $dados['idestado']; ?>"> <?= $dados['nome_estado']; ?></option>           
+                                                    ?>    
+                                                    <option value="<?= $dados['idestado']; ?>" <?= $estadoFiltro == $dados['idestado'] ? 'selected' : '' ?>> <?= $dados['nome_estado']; ?></option>          
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-
+                                    <br/> 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="cidadeProduto">Cidade</label>
                                         <div class="col-md-6">
-                                            <select id="tipoProduto" name="cidadeProduto" class="browser-default custom-select">
+                                            <select id="cidadeProduto" name="cidadeProduto" class="browser-default custom-select">
                                                 <option value="" selected>Selecione a cidade</option>
                                                 <?php
                                                 $consultaCidade = mysqli_query(conectar(), "SELECT * FROM cidade");
                                                 while ($dados = mysqli_fetch_assoc($consultaCidade)) {
-                                                    ?>
-                                                    <option value="<?= $dados['idcidade']; ?>"> <?= $dados['nome_cidade']; ?></option>           
+                                                    ?> 
+                                                    <option value="<?= $dados['idcidade']; ?>" <?= $cidadeFiltro == $dados['idcidade'] ? 'selected' : '' ?>> <?= $dados['nome_cidade']; ?></option>          
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-
+                                    <br/> 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="tipoProduto">Tipo</label>
                                         <div class="col-md-6">
                                             <select id="tipoProduto" name="tipoProduto" class="browser-default custom-select">
                                                 <option value="">Selecione o tipo</option>
                                                 <?php
-                                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
+                                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM PRODUTO");
                                                 while ($dados = mysqli_fetch_assoc($consultaTipos)) {
                                                     ?>
-                                                    <option value="<?= $dados['idtipoproduto']; ?>" <?= $tipoProduto == $dados['idtipoproduto'] ? 'selected' : '' ?>> <?= $dados['nome']; ?></option>           
+                                                    <option value="<?= $dados['tipoproduto']; ?>" <?= $tipoProduto == $dados['idtipoproduto'] ? 'selected' : '' ?>> <?= $dados['nome']; ?></option>           
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-
-                                    <?php /* <div class="form-group">
-                                      <label class="col-md-4 control-label" for="nomeProduto">Produto</label>
-                                      <div class="col-md-6">
-                                      <select id="nomeProduto" name="nomeProduto" class="browser-default custom-select">
-                                      <option selected>Selecione o produto</option>
-                                      <?php
-                                      $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
-                                      while ($dados = mysqli_fetch_assoc($consultaNomeProduto)) {
-                                      ?>
-                                      <option value="<?= $dados['idproduto']; ?>"> <?= $dados['nome_produto']; ?></option>
-                                      <?php
-                                      }
-                                      ?>
-                                      </select>
-                                      </div>
-                                      </div>
-
-                                      <label>Alugar até: </label>
-                                      <input name="dataFinalAluguel" type="date" class="form-control"> */ ?>
-
+                                    <br/> 
+                                    <label>Alugar até: </label>
+                                    <input name="dataFinalAluguel" type="date" class="form-control">
+                                    <br/> 
                                     <br/> 
                                     <!-- Button (Double) -->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="buttonSave"></label>
                                         <div class="col-md-8">
                                             <button type="submit" id="buttonSave" class="btn btn-primary">Buscar</button>
-                                            <button id="buttonClear" class="btn btn-default">Limpar</button>
+                                            <button id="buttonClear" class="btn btn-default">Limpar filtro</button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>      
                         </div>
                     </div>
                 </div>
-
-
-
                 <div class="col s8 m8 l8 offset-8">
                     <div class="card">
                         <div class="card-content">
