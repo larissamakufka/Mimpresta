@@ -1,4 +1,6 @@
 <?php
+include ("servicos/conexaoBD.php");
+
 session_start();
 if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
     header("location: index.php");
@@ -59,51 +61,98 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
                                     <input name="nomeProduto"class="form-control" placeholder="Nome do Produto" autofocus=""/>
                                     <br/>
                                     <br/>
-                                    <div>
-                                        <label>Categoria:</label>
-                                        <select name="tipoProduto" class="browser-default custom-select">
-                                            <option selected>Selecione a categoria</option>
-                                            <?php
-                                            include ("servicos/conexaoBD.php");
-                                            $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
-                                            while ($dados = mysqli_fetch_assoc($consultaTipos)) {
-                                                ?>
-                                                <option value="<?= $dados['idtipoproduto']; ?>"> <?= $dados['nome']; ?></option>           
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                        <br>
-                                    </div>
                                     <div class="row">
-                                        <div class="col s6 m6 l6">
-                                            <label>Valor por dia de uso do produto</label>
-                                            <input name="valor_dia" type="text" class="form-control money" placeholder="valor"  />
-                                        </div>
-                                        <div class="col s6 m6 l6">
-                                            <label>Quantidade</label>
-                                            <input name="quantidade" type="number" class="form-control" placeholder="quantidade"/>
+                                        <div class="col s12 m12 l12">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="paisProduto">País</label>
+                                                <div class="col-md-6">
+                                                    <select id="tipoProduto" name="paisProduto" class="browser-default custom-select">
+                                                        <option value="" selected>Selecione o país</option>
+                                                        <?php
+                                                        $consultaPais = mysqli_query(conectar(), "SELECT * FROM PAIS");
+                                                        while ($dados = mysqli_fetch_assoc($consultaPais)) {
+                                                            ?>
+                                                            <option value="<?= $dados['idpais']; ?>"> <?= $dados['nome_pais']; ?></option>           
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="estadoProduto">Estado</label>
+                                                <div class="col-md-6">
+                                                    <select id="tipoProduto" name="estadoProduto" class="browser-default custom-select">
+                                                        <option value="" selected>Selecione o estado</option>
+                                                        <?php
+                                                        $consultaEstado = mysqli_query(conectar(), "SELECT * FROM estado");
+                                                        while ($dados = mysqli_fetch_assoc($consultaEstado)) {
+                                                            ?>
+                                                            <option value="<?= $dados['idestado']; ?>"> <?= $dados['nome_estado']; ?></option>           
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="cidadeProduto">Cidade</label>
+                                                <div class="col-md-6">
+                                                    <select id="tipoProduto" name="cidadeProduto" class="browser-default custom-select">
+                                                        <option value="" selected>Selecione a cidade</option>
+                                                        <?php
+                                                        $consultaCidade = mysqli_query(conectar(), "SELECT * FROM cidade");
+                                                        while ($dados = mysqli_fetch_assoc($consultaCidade)) {
+                                                            ?>
+                                                            <option value="<?= $dados['idcidade']; ?>"> <?= $dados['nome_cidade']; ?></option>           
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <label>Categoria:</label>
+                                            <select name="tipoProduto" class="browser-default custom-select">
+                                                <option selected>Selecione a categoria</option>
+                                                <?php
+                                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
+                                                while ($dados = mysqli_fetch_assoc($consultaTipos)) {
+                                                    ?>
+                                                    <option value="<?= $dados['idtipoproduto']; ?>"> <?= $dados['nome']; ?></option>           
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col s6 m6 l6">
+                                                    <label>Valor por dia de uso do produto</label>
+                                                    <input name="valor_dia" type="text" class="form-control money" placeholder="valor"  />
+                                                </div>
+                                                <div class="col s6 m6 l6">
+                                                    <label>Quantidade</label>
+                                                    <input name="quantidade" type="number" class="form-control" placeholder="quantidade"/>
+                                                </div>
+                                            </div>   
+                                            <div class = text-center>
+                                                <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
+                                            </div>   
                                         </div>
                                     </div>
-                                    <div class = text-center>
-                                        <button type="submit" class="btn btn-primary text-center">Confirmar Cadastro</button>
-                                    </div>   
                                 </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-            </div>
-        </div>
 
-
-        <br><br>
-    </body>
-    <script>
-        $(document).ready(function () {
-            $('.money').mask('000.000,00', {reverse: true});
-        });
-    </script>
-</html>
+                <br><br>
+                </body>
+                <script>
+                    $(document).ready(function () {
+                        $('.money').mask('000.000,00', {reverse: true});
+                    });
+                </script>
+                </html>
