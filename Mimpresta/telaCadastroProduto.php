@@ -18,7 +18,7 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
 
         <style>
             body  {
-                background: url("./trianglify.png");
+                background: url("./Img/planoFundo.png");
                 background-size: cover;
                 background-repeat:no-repeat;
             }
@@ -76,11 +76,11 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
                                         <br>
                                     </div>
                                     <div class="row">
-                                        <div class="col s12 m12 l6">
+                                        <div class="col s6 m6 l6">
                                             <label>Valor por dia de uso do produto</label>
                                             <input name="valor_dia" type="text" class="form-control money" placeholder="valor"  />
                                         </div>
-                                        <div class="col s12 m12 l6">
+                                        <div class="col s6 m6 l6">
                                             <label>Quantidade</label>
                                             <input name="quantidade" type="number" class="form-control" placeholder="quantidade"/>
                                         </div>

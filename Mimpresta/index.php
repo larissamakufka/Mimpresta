@@ -16,7 +16,7 @@ if (isset($_GET["status"])) {
 
         <style>
             body  {
-                background: url("./trianglify.png");
+                background: url("./Img/planoFundo.png");
                 background-size: cover;
                 background-repeat:no-repeat;
             }
