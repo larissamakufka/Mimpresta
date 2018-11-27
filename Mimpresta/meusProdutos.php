@@ -15,12 +15,6 @@
                 background-size: cover;
                 background-repeat:no-repeat;
             }
-            #buscar {
-                background-color: whitesmoke;
-            }
-            #tela2 {
-                background-color: whitesmoke;
-            }
 
             nav {
                 background-color: rgba(0,0,0,0.2);
@@ -52,8 +46,8 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m12 l12 offset-12">
-                    <div id="tela2">
-                        <fieldset>
+                    <div class="card">
+                        <div class="card-content">
                             <table>
                                 <thead>
                                     <tr class="header">
@@ -97,15 +91,15 @@
                                     ?>
                                 </tbody>
                             </table>
-                        </fieldset>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col s12 m12 l12 offset-12">
-                    <div id="tela2">
-                        <fieldset> <?php // Ainda falta implementar os produtos locados:       ?>
+                    <div class="card">
+                        <div class="card-content">
                             <table>
                                 <thead>
                                     <tr class="header">
@@ -142,7 +136,7 @@
                                     ?>
                                 </tbody>
                             </table>
-                        </fieldset>
+                        </div>
                     </div>
                 </div>
             </div>
