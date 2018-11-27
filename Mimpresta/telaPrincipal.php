@@ -1,3 +1,18 @@
+<?php
+include ("servicos/conexaoBD.php");
+
+$tipoProduto = null;
+if (isset($_GET["tipoProduto"])) {
+    $tipoProduto = $_GET["tipoProduto"];
+}
+
+$sql = "SELECT * FROM produto WHERE 1 = 1";
+if ($tipoProduto != null) {
+    $sql .= " AND tipo_produto_idtipoProduto = $tipoProduto";
+}
+//echo($sql);
+$consultaNomeProduto = mysqli_query(conectar(), $sql);
+?>
 <html>
     <head>
         <!-- Compiled and minified CSS -->
@@ -5,6 +20,7 @@
 
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <title>Procurar produtos</title>
         <style>
 
@@ -13,13 +29,6 @@
                 background-size: cover;
                 background-repeat:no-repeat;
             }
-            #buscar {
-                background-color: whitesmoke;
-            }
-            #tela2 {
-                background-color: whitesmoke;
-            }
-
             nav {
                 background-color: rgba(0,0,0,0.2);
             }
@@ -54,9 +63,10 @@
                     <div class="forms"> 
 
                         <!-- Search input-->
-                        <div id="buscar">
-                            <form class="form-horizontal" method="post" action="actions/alugar.php">
-                                <fieldset>                        
+                        <div class="card">
+                            <div class="card-content">
+                                <form class="form-horizontal" method="GET" action="telaPrincipal.php">
+
                                     <span class="card-title">Busca de produtos</span>
                                     <br/> 
                                     <br/> 
@@ -64,13 +74,12 @@
                                         <label class="col-md-4 control-label" for="paisProduto">País</label>
                                         <div class="col-md-6">
                                             <select id="tipoProduto" name="paisProduto" class="browser-default custom-select">
-                                                <option selected>Selecione o país</option>
+                                                <option value="" selected>Selecione o país</option>
                                                 <?php
-                                                include ("servicos/conexaoBD.php");
                                                 $consultaPais = mysqli_query(conectar(), "SELECT * FROM PAIS");
                                                 while ($dados = mysqli_fetch_assoc($consultaPais)) {
                                                     ?>
-                                                    <option value="<?= $dados['idPais']; ?>"> <?= $dados['nome_pais']; ?></option>           
+                                                    <option value="<?= $dados['idpais']; ?>"> <?= $dados['nome_pais']; ?></option>           
                                                     <?php
                                                 }
                                                 ?>
@@ -81,7 +90,7 @@
                                         <label class="col-md-4 control-label" for="estadoProduto">Estado</label>
                                         <div class="col-md-6">
                                             <select id="tipoProduto" name="estadoProduto" class="browser-default custom-select">
-                                                <option selected>Selecione o estado</option>
+                                                <option value="" selected>Selecione o estado</option>
                                                 <?php
                                                 $consultaEstado = mysqli_query(conectar(), "SELECT * FROM estado");
                                                 while ($dados = mysqli_fetch_assoc($consultaEstado)) {
@@ -98,7 +107,7 @@
                                         <label class="col-md-4 control-label" for="cidadeProduto">Cidade</label>
                                         <div class="col-md-6">
                                             <select id="tipoProduto" name="cidadeProduto" class="browser-default custom-select">
-                                                <option selected>Selecione a cidade</option>
+                                                <option value="" selected>Selecione a cidade</option>
                                                 <?php
                                                 $consultaCidade = mysqli_query(conectar(), "SELECT * FROM cidade");
                                                 while ($dados = mysqli_fetch_assoc($consultaCidade)) {
@@ -115,12 +124,12 @@
                                         <label class="col-md-4 control-label" for="tipoProduto">Tipo</label>
                                         <div class="col-md-6">
                                             <select id="tipoProduto" name="tipoProduto" class="browser-default custom-select">
-                                                <option selected>Selecione o tipo</option>
+                                                <option value="">Selecione o tipo</option>
                                                 <?php
                                                 $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
                                                 while ($dados = mysqli_fetch_assoc($consultaTipos)) {
                                                     ?>
-                                                    <option value="<?= $dados['idtipoproduto']; ?>"> <?= $dados['nome']; ?></option>           
+                                                    <option value="<?= $dados['idtipoproduto']; ?>" <?= $tipoProduto == $dados['idtipoproduto'] ? 'selected' : '' ?>> <?= $dados['nome']; ?></option>           
                                                     <?php
                                                 }
                                                 ?>
@@ -153,22 +162,23 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="buttonSave"></label>
                                         <div class="col-md-8">
-                                            <button type="submit" id="buttonSave" name="buttonSave" class="btn btn-primary">Aplicar</button>
-                                            <button id="buttonClear" name="buttonClear" class="btn btn-default">Limpar</button>
+                                            <button type="submit" id="buttonSave" class="btn btn-primary">Buscar</button>
+                                            <button id="buttonClear" class="btn btn-default">Limpar</button>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </form>
-                        </div>              
+
+                                </form>
+                            </div>      
+                        </div>
                     </div>
                 </div>
 
 
 
                 <div class="col s8 m8 l8 offset-8">
-                    <form>
-                        <div id="tela2">
-                            <fieldset>
+                    <div class="card">
+                        <div class="card-content">
+                            <form>
                                 <table>
                                     <thead>
                                         <tr class="header">
@@ -192,22 +202,20 @@
                                         //falta fazer funcionar a listagem de produtos conforme filtro.
                                         //após, falta fazer o botão reservar funcionar.
 
-                                        $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
-                                        $linha = mysqli_fetch_array($consultaNomeProduto);
                                         while ($dados = mysqli_fetch_array($consultaNomeProduto)) {
                                             ?>
                                             <tr> 
                                                 <td> 
-                                                    <?= $linha['nome_produto'] ?> 
+                                                    <?= $dados['nome_produto'] ?> 
                                                 </td> 
                                                 <td> 
-                                                    <?= $linha['valor_dia'] ?> 
+                                                    <?= $dados['valor_dia'] ?> 
                                                 </td> 
                                                 <td> 
                                                     <input name="dataFinalAluguel" type="date" class="form-control">
                                                 </td> 
                                                 <td> 
-                                                    <a class="btn-floating btn-default waves-effect waves-light green"><i class="material-icons">+</i></a>
+                                                    <a class="btn-floating btn-default waves-effect waves-light green"><i class="material-icons">add</i></a>
                                                 </td> 
                                             </tr>
                                             <?php
@@ -215,9 +223,9 @@
                                         ?>
                                     </tbody>
                                 </table>
-                            </fieldset>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
