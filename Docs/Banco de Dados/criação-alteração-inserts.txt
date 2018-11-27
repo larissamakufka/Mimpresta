@@ -1,105 +1,101 @@
-CREATE TABLE alugado (
-  idaluguel INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  usuario_idusuario INTEGER UNSIGNED  NOT NULL  ,
-  produto_idproduto INTEGER UNSIGNED  NOT NULL  ,
-  data_inicio_alugado DATE  NOT NULL  ,
-  data_fim_alugado DATE  NOT NULL    ,
-PRIMARY KEY(idaluguel)  ,
-INDEX aluguel_FKIndex1(produto_idproduto)  ,
-INDEX aluguel_FKIndex3(usuario_idusuario));
+CREATE TABLE `alugado` (
+ `idaluguel` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `usuario_idusuario` int(10) unsigned NOT NULL,
+ `produto_idproduto` int(10) unsigned NOT NULL,
+ `data_inicio_alugado` date NOT NULL,
+ `data_fim_alugado` date NOT NULL,
+ PRIMARY KEY (`idaluguel`),
+ KEY `aluguel_FKIndex1` (`produto_idproduto`),
+ KEY `aluguel_FKIndex3` (`usuario_idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `cidade` (
+ `idcidade` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `estado_pais_idpais` int(10) unsigned NOT NULL,
+ `estado_idestado` int(10) unsigned NOT NULL,
+ `nome_cidade` varchar(255) NOT NULL,
+ PRIMARY KEY (`idcidade`,`estado_pais_idpais`,`estado_idestado`),
+ KEY `cidade_FKIndex1` (`estado_idestado`,`estado_pais_idpais`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+
+CREATE TABLE `estado` (
+ `estado` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `pais` int(10) unsigned NOT NULL,
+ `nome_estado` varchar(255) NOT NULL,
+ `sigla_estado` varchar(2) NOT NULL,
+ PRIMARY KEY (`estado`,`pais`),
+ KEY `estado_FKIndex1` (`pais`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
+
+CREATE TABLE `fornecido` (
+ `idaluguelfornecedor` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `produto` int(10) unsigned NOT NULL,
+ `usuario` int(10) unsigned NOT NULL,
+ `data_inicio_fornecido` date NOT NULL,
+ `data_fim_fornecido` date NOT NULL,
+ PRIMARY KEY (`idaluguelfornecedor`),
+ KEY `aluguelFornecedor_FKIndex1` (`usuario`),
+ KEY `fornecidos_FKIndex2` (`produto`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `pais` (
+ `idpais` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `nome_pais` varchar(45) NOT NULL,
+ PRIMARY KEY (`idpais`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+
+CREATE TABLE `produto` (
+ `idproduto` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `statusproduto` int(10) unsigned NOT NULL,
+ `usuario` int(10) unsigned NOT NULL,
+ `tipoProduto` int(10) unsigned NOT NULL,
+ `nome_produto` varchar(255) NOT NULL,
+ `valor_dia` decimal(10,2) NOT NULL,
+ `localizacao` int(10) NOT NULL,
+ PRIMARY KEY (`idproduto`),
+ KEY `produto_FKIndex1` (`tipoProduto`),
+ KEY `produto_FKIndex3` (`usuario`),
+ KEY `produto_FKIndex4` (`statusproduto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+
+CREATE TABLE `reserva` (
+ `idreserva` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `produto` int(10) unsigned NOT NULL,
+ `data_inicio` date NOT NULL,
+ `data_fim` date NOT NULL,
+ PRIMARY KEY (`idreserva`),
+ KEY `reserva_FKIndex1` (`produto`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `status_produto` (
+ `idstatusproduto` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `status_produto` varchar(255) NOT NULL,
+ PRIMARY KEY (`idstatusproduto`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `tipo_produto` (
+ `idtipoproduto` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `nome` varchar(255) NOT NULL,
+ PRIMARY KEY (`idtipoproduto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+
+CREATE TABLE `usuario` (
+ `idusuario` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `estado` int(10) unsigned NOT NULL,
+ `pais` int(10) unsigned NOT NULL,
+ `cidade` int(10) unsigned NOT NULL,
+ `nome_usuario` varchar(255) NOT NULL,
+ `cpf` varchar(11) NOT NULL,
+ `rg` varchar(9) NOT NULL,
+ `email` varchar(45) NOT NULL,
+ `usuario` varchar(45) NOT NULL,
+ `senha` varchar(45) NOT NULL,
+ `logradouro` varchar(255) NOT NULL,
+ `complemento_logradouro` varchar(10) NOT NULL,
+ PRIMARY KEY (`idusuario`),
+ KEY `usuario_FKIndex1` (`cidade`,`pais`,`estado`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
 
 
-CREATE TABLE cidade (
-  idcidade INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  estado_pais_idpais INTEGER UNSIGNED  NOT NULL  ,
-  estado_idestado INTEGER UNSIGNED  NOT NULL  ,
-  nome_cidade VARCHAR(255)  NOT NULL    ,
-PRIMARY KEY(idcidade, estado_pais_idpais, estado_idestado)  ,
-INDEX cidade_FKIndex1(estado_idestado, estado_pais_idpais));
 
-
-CREATE TABLE estado (
-  idestado INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  pais_idpais INTEGER UNSIGNED  NOT NULL  ,
-  nome_estado VARCHAR(255)  NOT NULL  ,
-  sigla_estado VARCHAR(2)  NOT NULL    ,
-PRIMARY KEY(idestado, pais_idpais)  ,
-INDEX estado_FKIndex1(pais_idpais));
-
-
-CREATE TABLE fornecido (
-  idaluguelfornecedor INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  produto_idproduto INTEGER UNSIGNED  NOT NULL  ,
-  usuario_idusuario INTEGER UNSIGNED  NOT NULL  ,
-  data_inicio_fornecido DATE  NOT NULL  ,
-  data_fim_fornecido DATE  NOT NULL    ,
-PRIMARY KEY(idaluguelfornecedor)  ,
-INDEX aluguelFornecedor_FKIndex1(usuario_idusuario)  ,
-INDEX fornecidos_FKIndex2(produto_idproduto));
-
-
-CREATE TABLE pais (
-  idpais INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  nome_pais VARCHAR(45)  NOT NULL    ,
-PRIMARY KEY(idpais));
-
-
-CREATE TABLE produto (
-  idproduto INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  status_produto_idstatusproduto INTEGER UNSIGNED  NOT NULL  ,
-  usuario_idusuario INTEGER UNSIGNED  NOT NULL  ,
-  tipo_produto_idtipoProduto INTEGER UNSIGNED  NOT NULL  ,
-  nome_produto VARCHAR(255)  NOT NULL    ,
-PRIMARY KEY(idproduto)  ,
-INDEX produto_FKIndex1(tipo_produto_idtipoProduto)  ,
-INDEX produto_FKIndex3(usuario_idusuario)  ,
-INDEX produto_FKIndex4(status_produto_idstatusproduto));
-
-
-CREATE TABLE reserva (
-  idreserva INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  produto_idproduto INTEGER UNSIGNED  NOT NULL  ,
-  data_inicio DATE  NOT NULL  ,
-  data_fim DATE  NOT NULL    ,
-PRIMARY KEY(idreserva)  ,
-INDEX reserva_FKIndex1(produto_idproduto));
-
-
-CREATE TABLE status_produto (
-  idstatusproduto INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  status_produto VARCHAR(255)  NOT NULL    ,
-PRIMARY KEY(idstatusproduto));
-
-
-CREATE TABLE tipo_produto (
-  idtipoproduto INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  nome VARCHAR(255)  NOT NULL    ,
-PRIMARY KEY(idtipoproduto));
-
-
-CREATE TABLE usuario (
-  idusuario INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
-  cidade_estado_idestado INTEGER UNSIGNED  NOT NULL  ,
-  cidade_estado_pais_idpais INTEGER UNSIGNED  NOT NULL  ,
-  cidade_idcidade INTEGER UNSIGNED  NOT NULL  ,
-  nome_usuario VARCHAR(255)  NOT NULL  ,
-  cpf VARCHAR(11)  NOT NULL  ,
-  rg VARCHAR(9)  NOT NULL  ,
-  email VARCHAR(45)  NOT NULL  ,
-  usuario VARCHAR(45)  NOT NULL  ,
-  senha VARCHAR(45)  NOT NULL  ,
-  logradouro VARCHAR(255)  NOT NULL  ,
-  complemento_logradouro VARCHAR(10)  NOT NULL    ,
-PRIMARY KEY(idusuario)  ,
-INDEX usuario_FKIndex1(cidade_idcidade, cidade_estado_pais_idpais, cidade_estado_idestado));
-
-
-ALTER TABLE `produto` ADD `valor_dia` DECIMAL(10,2) NOT NULL ;
-
-
-
-
-INSERT INTO `pais` (`idpais`, `nome_pais`) VALUES ('0', 'Brasil')
-INSERT INTO `estado` (`idestado`, `pais_idpais`, `nome_estado`, `sigla_estado`) VALUES ('0', '0', 'Santa Catarina', 'SC');
-INSERT INTO `cidade` (`idcidade`, `estado_pais_idpais`, `estado_idestado`, `nome_cidade`) VALUES ('0', '0', '0', 'Blumenau');
-INSERT INTO `tipo_produto` (`idtipoproduto`, `nome`) VALUES ('0', 'casa');
+https://jsfiddle.net/dPixie/byB9d/3/

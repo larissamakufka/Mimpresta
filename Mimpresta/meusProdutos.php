@@ -74,8 +74,8 @@
                                     include ("servicos/conexaoBD.php");
                                     $consultaFornecido = mysqli_query(conectar(), "SELECT * FROM fornecido f,produto p, "
                                             . "status_produto s "
-                                            . "WHERE f.produto_idproduto = p.idproduto and "
-                                            . "p.status_produto_idstatusproduto = s.idstatusproduto");
+                                            . "WHERE f.produto = p.idproduto and "
+                                            . "p.statusproduto = s.idstatusproduto");
 
                                     $linha = mysqli_fetch_assoc($consultaFornecido);
 
