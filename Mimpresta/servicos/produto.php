@@ -3,9 +3,9 @@
 require __DIR__ . '/conexaoBD.php';
 session_start();
 
-function addProduto($nome, $tipo, $valor) {
+function addProduto($nome, $tipo, $valor, $pais, $estado, $cidade) {
 
-    $sql = "insert into produto values(0,1,$_SESSION[id_usuario],$tipo,'$nome',$valor)";
+    $sql = "insert into produto values(0,1,$_SESSION[id_usuario],$tipo,'$nome',$valor, $pais, $estado, $cidade)";
     $link = conectar();
     if (!mysqli_query($link, $sql)) {
         echo mysqli_error($link);

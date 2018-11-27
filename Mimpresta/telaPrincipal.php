@@ -1,6 +1,10 @@
 <?php
 include ("servicos/conexaoBD.php");
 
+$paisFiltro = null;
+if (isset($_GET["paisProduto"])) {
+    $paisFiltro = $_GET["paisProduto"];
+}
 $tipoProduto = null;
 if (isset($_GET["tipoProduto"])) {
     $tipoProduto = $_GET["tipoProduto"];
@@ -8,9 +12,13 @@ if (isset($_GET["tipoProduto"])) {
 
 $sql = "SELECT * FROM produto WHERE 1 = 1";
 if ($tipoProduto != null) {
-    $sql .= " AND tipo_produto_idtipoProduto = $tipoProduto";
+    $sql .= " AND tipoProduto = $tipoProduto";
 }
-//echo($sql);
+
+if ($paisFiltro != null) {
+    $sql .= " AND pais = $paisFiltro";
+}
+echo($sql);
 $consultaNomeProduto = mysqli_query(conectar(), $sql);
 ?>
 <html>
@@ -79,7 +87,7 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                                                 $consultaPais = mysqli_query(conectar(), "SELECT * FROM PAIS");
                                                 while ($dados = mysqli_fetch_assoc($consultaPais)) {
                                                     ?>
-                                                    <option value="<?= $dados['idpais']; ?>"> <?= $dados['nome_pais']; ?></option>           
+                                                    <option value="<?= $dados['idpais']; ?>"> <?= $dados['nome_pais']; ?></option>    
                                                     <?php
                                                 }
                                                 ?>
