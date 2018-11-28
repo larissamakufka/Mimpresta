@@ -15,7 +15,7 @@ $dados = mysqli_fetch_assoc($rs);
 $idUsuario = $dados["idusuario"];
 
 if ($login) {
-    $_SESSION["id_usuario"] = $idUsuario;
+    $_SESSION["idusuario"] = $idUsuario;
     $_SESSION["usuario"] = $usuario;
     
     header("location: ../telaPrincipal.php");
