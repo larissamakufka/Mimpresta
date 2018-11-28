@@ -1,4 +1,6 @@
-
+<?php
+header('Content-Type: text/html; charset=utf-8');
+?>
 <html>
     <head>
         <!-- Compiled and minified CSS -->
@@ -7,7 +9,7 @@
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <title>Meus Produtos</title>
-
+        <meta charset="UTF-8">
         <style>
 
             body  {
@@ -71,7 +73,7 @@
                                             . "WHERE f.produto = p.idproduto and "
                                             . "p.statusproduto = s.idstatusproduto");
 
-                                    $linha = mysqli_fetch_assoc($consultaFornecido);
+
 
                                     while ($linha = mysqli_fetch_assoc($consultaFornecido)) {
                                         ?>
@@ -116,9 +118,12 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $consultaNomeProduto = mysqli_query(conectar(), "SELECT * FROM produto");
-                                    $linha = mysqli_fetch_array($consultaNomeProduto);
-                                    do {
+                                    $consultaAlugado = mysqli_query(conectar(), "SELECT * FROM alugado l,produto p "
+                                            . "WhERE l.produto_idproduto = p.idproduto");
+
+
+
+                                    while ($linha = mysqli_fetch_assoc($consultaAlugado)) {
                                         ?>
                                         <tr> 
                                             <td> 
@@ -128,11 +133,11 @@
                                                 <?= $linha['valor_dia'] ?> 
                                             </td> 
                                             <td> 
-
+                                                <?= $linha['data_fim_alugado'] ?>
                                             </td> 
                                         </tr>
                                         <?php
-                                    } while ($dados = mysqli_fetch_array($consultaNomeProduto));
+                                    }
                                     ?>
                                 </tbody>
                             </table>

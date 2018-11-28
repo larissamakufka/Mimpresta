@@ -22,6 +22,11 @@ if (isset($_GET["tipoProduto"])) {
     $tipoProduto = $_GET["tipoProduto"];
 }
 
+$status = -1;
+if (isset($_GET["status"])) {
+    $status = $_GET["status"];
+}
+
 $sql = "SELECT * FROM produto WHERE 1 = 1";
 if ($descricaoproduto != null) {
     $sql .= " AND nome_produto like '%$descricaoproduto%'";
@@ -46,11 +51,12 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
     <head>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+        <script src="js/jQuery.js" type="text/javascript"></script>
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <title>Procurar produtos</title>
+        <meta charset="UTF-8">
         <style>
 
             body  {
@@ -159,10 +165,10 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                                             <select id="tipoProduto" name="tipoProduto" class="browser-default custom-select">
                                                 <option value="">Selecione o tipo</option>
                                                 <?php
-                                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipoproduto");
+                                                $consultaTipos = mysqli_query(conectar(), "SELECT * FROM tipo_produto");
                                                 while ($dados = mysqli_fetch_assoc($consultaTipos)) {
                                                     ?>
-                                                    <option value="<?= $dados['tipoproduto']; ?>" <?= $tipoProduto == $dados['idtipoproduto'] ? 'selected' : '' ?>> <?= $dados['nome']; ?></option>           
+                                                    <option value="<?= $dados['idtipoproduto']; ?>" <?= $tipoProduto == $dados['idtipoproduto'] ? 'selected' : '' ?>> <?= $dados['nome']; ?></option>           
                                                     <?php
                                                 }
                                                 ?>
@@ -190,56 +196,73 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                 <div class="col s8 m8 l8 offset-8">
                     <div class="card">
                         <div class="card-content">
-                            <form>
-                                <table>
-                                    <thead>
-                                        <tr class="header">
-                                            <th>
-                                                Descrição
-                                            </th>
-                                            <th>
-                                                Valor por dia
-                                            </th>
-                                            <th>
-                                                Pretendo alugar até:
-                                            </th>
-                                            <th>
-                                                Reservar
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        //criei a action "alugar" e o serviço filtro, 
-                                        //falta fazer funcionar a listagem de produtos conforme filtro.
-                                        //após, falta fazer o botão reservar funcionar.
 
-                                        while ($dados = mysqli_fetch_array($consultaNomeProduto)) {
-                                            ?>
-                                            <tr> 
-                                                <td> 
-                                                    <?= $dados['nome_produto'] ?> 
-                                                </td> 
-                                                <td> 
-                                                    <?= $dados['valor_dia'] ?> 
-                                                </td> 
-                                                <td> 
-                                                    <input name="dataFinalAluguel" type="date" class="form-control">
-                                                </td> 
-                                                <td> 
-                                                    <a class="btn-floating btn-default waves-effect waves-light green"><i class="material-icons">add</i></a>
-                                                </td> 
-                                            </tr>
-                                            <?php
-                                        }
+                            <table>
+                                <thead>
+                                    <tr class="header">
+                                        <th>
+                                            Descrição
+                                        </th>
+                                        <th>
+                                            Valor
+                                        </th>
+                                        <th>
+                                            Data início aluguel:
+                                        </th>
+                                        <th>
+                                            Data fim aluguel:
+                                        </th>
+                                        <th>
+                                            Alugar
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    //criei a action "alugar" e o serviço filtro, 
+                                    //falta fazer funcionar a listagem de produtos conforme filtro.
+                                    //após, falta fazer o botão reservar funcionar.
+
+                                    while ($dados = mysqli_fetch_array($consultaNomeProduto)) {
                                         ?>
-                                    </tbody>
-                                </table>
-                            </form>
+                                    <form method="post" action="actions/alugar.php">
+                                        <tr>         
+                                            <td > 
+                                                <input type="hidden" value="<?= $dados['idproduto'] ?>" name="idproduto" />
+                                                <?= $dados['nome_produto'] ?> 
+                                            </td> 
+                                            <td id="valor"> 
+                                                <?= $dados['valor_dia'] ?>
+                                            </td> 
+                                            <td id="dataInicio"> 
+                                                <input name="dataInicioAluguel" type="date" class="form-control" required="">
+                                            </td>
+                                            <td id="dataFim"> 
+                                                <input name="dataFinalAluguel" type="date" class="form-control" required="">
+                                            </td> 
+                                            <td> 
+                                                <button class="btn-floating btn-default waves-effect waves-light green"><i class="material-icons">done</i></button>
+                                            </td> 
+                                        </tr>
+                                    </form>
+                                    <?php
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </body>
+    <script>
+        $(document).ready(function () {
+<?php if ($status != -1) { ?>
+        M.toast({html: 'Produto alugado com sucesso'})
+<?php } ?>
+        });
+
+    </script>
 </html>

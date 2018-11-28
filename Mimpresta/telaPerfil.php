@@ -6,7 +6,7 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
     header("location: index.php");
 }
 echo($_SESSION["usuario"]);
-$sql = "SELECT * FROM USUARIO WHERE nome_uduario = '$_SESSION["usuario"]'";
+//$sql = "SELECT * FROM USUARIO WHERE nome_uduario = '$_SESSION["usuario"]'";
 
 $consultaNomeProduto = mysqli_query(conectar(), $sql);
 ?>
