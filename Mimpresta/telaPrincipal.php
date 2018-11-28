@@ -39,7 +39,7 @@ if ($tipoProduto != null) {
     $sql .= " AND tipoProduto = $tipoProduto";
 }
 
-echo($sql);
+//echo($sql);
 $consultaNomeProduto = mysqli_query(conectar(), $sql);
 ?>
 <html>

@@ -1,3 +1,6 @@
+<?php
+include ("servicos/conexaoBD.php");
+?>
 <html>
     <head>
         <!-- Compiled and minified CSS -->
@@ -57,7 +60,6 @@
                             <select name="pais" class="browser-default custom-select">
                                 <option selected>Selecione o País</option>
                                 <?php
-                                include ("servicos/conexaoBD.php");
                                 $consultaPais = mysqli_query(conectar(), "SELECT * FROM pais");
                                 while ($dados = mysqli_fetch_assoc($consultaPais)) {
                                     ?>
