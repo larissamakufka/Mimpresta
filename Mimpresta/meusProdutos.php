@@ -68,8 +68,7 @@ session_start();
                                 <tbody>
                                     <?php
                                     include ("servicos/conexaoBD.php");
-                                    $consultaFornecido = mysqli_query(conectar(), "select * from alugado a
-                                        inner join produto p on a.produto_idproduto = p.idproduto
+                                    $consultaFornecido = mysqli_query(conectar(), "select * from produto p 
                                         inner join status_produto s on p.statusproduto = s.idstatusproduto 
                                         where p.usuario = $_SESSION[idusuario]");
 
