@@ -9,6 +9,7 @@ session_start();
 
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <title>Meus Produtos</title>
         <meta charset="UTF-8">
         <style>
@@ -63,6 +64,9 @@ session_start();
                                         <th>
                                             Status atual
                                         </th>
+                                        <th>
+                                            Excluir
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,6 +89,9 @@ session_start();
                                             </td> 
                                             <td> 
                                                 <?= $linha['status_produto'] ?> 
+                                            </td> 
+                                            <td>
+                                                <button class="btn-floating btn-default waves-effect waves-light red"><i class="material-icons">cancel</i></button> 
                                             </td> 
                                         </tr>
                                         <?php
