@@ -5,10 +5,11 @@ session_start();
 if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"] == "") {
     header("location: index.php");
 }
-echo($_SESSION["usuario"]);
-//$sql = "SELECT * FROM USUARIO WHERE nome_uduario = '$_SESSION["usuario"]'";
+$usuarioAtual = $_SESSION["usuario"];
+$sql = "SELECT * FROM USUARIO WHERE idusuario = " . $_SESSION["idusuario"];
 
-$consultaNomeProduto = mysqli_query(conectar(), $sql);
+$rs_dadosUsuario = mysqli_query(conectar(), $sql);
+$dadosUsuario = mysqli_fetch_assoc($rs_dadosUsuario);
 ?>
 <html>
     <head>
@@ -58,34 +59,31 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                 </div>
             </div>
         </nav>
-        <br/>
         <div id="login" class="card">
             <div class="card-content">
                 <div class="form-group" >
-                    <form method="post" action="actions/addUsuario.php">
+                    <form method="post" action="actions/alteraUsuario.php">
                         <label>Nome Completo</label>
-                        <input name="nome"class="form-control" placeholder="usuário"/>
+                        <input name="nome"class="form-control" placeholder="usuário" value= "<?= $dadosUsuario["nome_usuario"] ?>"/>
                         <label >Cpf</label>
-                        <input name="cpf" class="form-control" placeholder="Cpf" />
+                        <input name="cpf" class="form-control" placeholder="Cpf" value= "<?= $dadosUsuario["cpf"] ?>"/>
                         <label >Rg</label>
-                        <input name="rg" class="form-control" placeholder="Rg" />
+                        <input name="rg" class="form-control" placeholder="Rg" value= "<?= $dadosUsuario["rg"]?>"/>
                         <label>E-mail particular</label>
-                        <input name="email"class="form-control" placeholder="E-mail"/>
-                        <label>Rua onde mora</label>
-                        <input name="nomeLogradouro"class="form-control" placeholder="Rua"/>
-                        <label>Numero endereço</label>
-                        <input name="numeroLogradouro"class="form-control" placeholder="Numero"/>
+                        <input name="email"class="form-control" placeholder="E-mail" value= "<?= $dadosUsuario["email"]?>"/>
+                        <label>Endereço e número</label>
+                        <input name="nomeLogradouro"class="form-control" placeholder="Rua" value= "<?= $dadosUsuario["logradouro"]?>"/>
                         <label>Complemento endereço</label>
-                        <input name="complementoLogradouro"class="form-control" placeholder="Complemento"/>                        
+                        <input name="complementoLogradouro"class="form-control" placeholder="Complemento" value= "<?= $dadosUsuario["complemento_logradouro"] ?>"/>  
                         <div>
                             <label>Selecione o país:</label>
-                            <select name="pais" class="browser-default custom-select">
-                                <option selected>Selecione o País</option>
+                            <select name="pais" class="browser-default custom-select" required>
+                                <option value="">Selecione o País</option>
                                 <?php
                                 $consultaPais = mysqli_query(conectar(), "SELECT * FROM pais");
                                 while ($dados = mysqli_fetch_assoc($consultaPais)) {
                                     ?>
-                                    <option value="<?= $dados['idpais']; ?>"> <?= $dados['nome_pais']; ?></option>           
+                                    <option value="<?= $dados['idpais']; ?>" <?= $dados['idpais'] == $dadosUsuario['pais'] ? 'selected' : '' ?>> <?= $dados['nome_pais']; ?></option>           
                                     <?php
                                 }
                                 ?>
@@ -93,13 +91,13 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                         </div>
                         <div>
                             <label>Selecione o estado:</label>
-                            <select name="estado" class="browser-default custom-select">
-                                <option selected>Selecione o estado</option>
+                            <select name="estado" class="browser-default custom-select" required>
+                                <option value="" selected>Selecione o estado</option>
                                 <?php
                                 $consultaEstado = mysqli_query(conectar(), "SELECT * FROM estado");
                                 while ($dados = mysqli_fetch_assoc($consultaEstado)) {
                                     ?>
-                                    <option value="<?= $dados['idestado']; ?>"> <?= $dados['nome_estado']; ?></option>           
+                                    <option value="<?= $dados['idestado']; ?>" <?= $dados['idestado'] == $dadosUsuario['estado'] ? 'selected' : '' ?>> <?= $dados['nome_estado']; ?></option>           
                                     <?php
                                 }
                                 ?>
@@ -107,13 +105,13 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                         </div>
                         <div>
                             <label>Selecione a cidade:</label>
-                            <select name="cidade" class="browser-default custom-select">
-                                <option selected>Selecione a cidade</option>
+                            <select name="cidade" class="browser-default custom-select" required>
+                                <option value="" selected>Selecione a cidade</option>
                                 <?php
                                 $consultaCidades = mysqli_query(conectar(), "SELECT * FROM cidade");
                                 while ($dados = mysqli_fetch_assoc($consultaCidades)) {
                                     ?>
-                                    <option value="<?= $dados['idcidade']; ?>"> <?= $dados['nome_cidade']; ?></option>           
+                                    <option value="<?= $dados['idcidade']; ?>" <?= $dados['idcidade'] == $dadosUsuario['cidade'] ? 'selected' : '' ?>> <?= $dados['nome_cidade']; ?></option>           
                                     <?php
                                 }
                                 ?>
@@ -122,9 +120,9 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
 
 
                         <label >Usuário</label>
-                        <input name="usuario" class="form-control" placeholder="Usuario" />
+                        <input name="usuario" disabled class="form-control" placeholder="Usuario" value="<?= $dadosUsuario["usuario"]?>"/>
                         <label >Senha</label>
-                        <input type="password" name="senha" class="form-control" placeholder="Senha" />
+                        <input type="password" name="senha" class="form-control" placeholder="Senha" value="<?= $dadosUsuario["senha"]?>"/>
                         <br/>
                         <div class = text-center>
                             <button type="submit" class="btn btn-primary text-center">Alterar</button>

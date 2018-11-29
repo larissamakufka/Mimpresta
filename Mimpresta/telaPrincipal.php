@@ -104,7 +104,7 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="nomeProduto">Produto</label>
                                         <div class="col-md-6">
-                                            <input id="nomeProduto" name="nomeProduto" class="browser-default custom-select"></input>
+                                            <input id="nomeProduto" name="nomeProduto" value=<?= $descricaoproduto ?>>
                                         </div>
                                     </div>
                                     <br/> 
@@ -175,10 +175,6 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
                                             </select>
                                         </div>
                                     </div>
-                                    <br/> 
-                                    <label>Alugar até: </label>
-                                    <input name="dataFinalAluguel" type="date" class="form-control">
-                                    <br/> 
                                     <br/> 
                                     <!-- Button (Double) -->
                                     <div class="form-group">
@@ -260,7 +256,7 @@ $consultaNomeProduto = mysqli_query(conectar(), $sql);
     <script>
         $(document).ready(function () {
 <?php if ($status != -1) { ?>
-        M.toast({html: 'Produto alugado com sucesso'})
+                M.toast({html: 'Produto alugado com sucesso'})
 <?php } ?>
         });
 
