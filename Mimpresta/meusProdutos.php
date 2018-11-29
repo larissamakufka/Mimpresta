@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
+session_start();
 ?>
 <html>
     <head>
@@ -66,12 +67,11 @@ header('Content-Type: text/html; charset=utf-8');
                                 </thead>
                                 <tbody>
                                     <?php
-                                    session_start();
                                     include ("servicos/conexaoBD.php");
-                                    $consultaFornecido = mysqli_query(conectar(), "SELECT * FROM fornecido f,produto p, "
-                                            . "status_produto s "
-                                            . "WHERE f.produto = p.idproduto and "
-                                            . "p.statusproduto = s.idstatusproduto");
+                                    $consultaFornecido = mysqli_query(conectar(), "select * from alugado a
+                                        inner join produto p on a.produto_idproduto = p.idproduto
+                                        inner join status_produto s on p.statusproduto = s.idstatusproduto 
+                                        where p.usuario = $_SESSION[idusuario]");
 
 
 
@@ -114,14 +114,15 @@ header('Content-Type: text/html; charset=utf-8');
                                         <th>
                                             Prazo final para  devolução
                                         </th>
+                                        <th>
+                                            Fornecedor
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $consultaAlugado = mysqli_query(conectar(), "SELECT * FROM alugado l,produto p "
-                                            . "WhERE l.produto_idproduto = p.idproduto");
-
-
+                                    $consultaAlugado = mysqli_query(conectar(), "SELECT * FROM alugado l,produto p, usuario u "
+                                            . "WhERE l.produto_idproduto = p.idproduto and p.usuario = u.idusuario and l.usuario_idusuario = $_SESSION[idusuario]");
 
                                     while ($linha = mysqli_fetch_assoc($consultaAlugado)) {
                                         ?>
@@ -134,6 +135,9 @@ header('Content-Type: text/html; charset=utf-8');
                                             </td> 
                                             <td> 
                                                 <?= $linha['data_fim_alugado'] ?>
+                                            </td> 
+                                            <td> 
+                                                <?= $linha['nome_usuario'] ?>
                                             </td> 
                                         </tr>
                                         <?php
